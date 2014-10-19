@@ -1,0 +1,194 @@
+### Directory-based for the main server
+Alias /mrepo <%= node[:mrepo][:config][:wwwdir] %>
+Alias /yam <%= node[:mrepo][:config][:wwwdir] %>
+
+EnableSendfile off
+EnableMMAP off
+HostNameLookups Off
+AddType text/html .shtml
+AddOutputFilter INCLUDES .shtml
+ReadmeName README.html
+HeaderName HEADER.html
+
+#
+# IndexIgnore is a set of filenames which directory indexing should ignore
+# and not include in the listing.  Shell-style wildcarding is permitted.
+#
+IndexIgnore .??* *~ *# HEADER* README* RCS CVS *,v *,t
+
+IndexOptions FancyIndexing VersionSort NameWidth=* HTMLTable Charset=UTF-8
+
+#
+# AddIcon* directives tell the server which icon to show for different
+# files or filename extensions.  These are only displayed for
+# FancyIndexed directories.
+#
+AddIconByEncoding (CMP,/icons/compressed.gif) x-compress x-gzip
+
+AddIconByType (TXT,/icons/text.gif) text/*
+AddIconByType (IMG,/icons/image2.gif) image/*
+AddIconByType (SND,/icons/sound2.gif) audio/*
+AddIconByType (VID,/icons/movie.gif) video/*
+
+AddIcon /icons/binary.gif .bin .exe
+AddIcon /icons/binhex.gif .hqx
+AddIcon /icons/tar.gif .tar
+AddIcon /icons/world2.gif .wrl .wrl.gz .vrml .vrm .iv
+AddIcon /icons/compressed.gif .Z .z .tgz .gz .zip
+AddIcon /icons/a.gif .ps .ai .eps
+AddIcon /icons/layout.gif .html .shtml .htm .pdf
+AddIcon /icons/text.gif .txt
+AddIcon /icons/c.gif .c
+AddIcon /icons/p.gif .pl .py
+AddIcon /icons/f.gif .for
+AddIcon /icons/dvi.gif .dvi
+AddIcon /icons/uuencoded.gif .uu
+AddIcon /icons/script.gif .conf .sh .shar .csh .ksh .tcl
+AddIcon /icons/tex.gif .tex
+AddIcon /icons/bomb.gif core
+
+AddIcon /icons/back.gif ..
+AddIcon /icons/hand.right.gif README
+AddIcon /icons/folder.gif ^^DIRECTORY^^
+AddIcon /icons/blank.gif ^^BLANKICON^^
+
+#
+# DefaultIcon is which icon to show for files which do not have an icon
+# explicitly set.
+#
+DefaultIcon /icons/unknown.gif
+
+Alias /icons/ "/var/www/icons/"
+
+<Directory "/var/www/icons">
+    Options Indexes MultiViews FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+
+<Directory /var/www/mrepo>
+        Options Indexes FollowSymlinks SymLinksifOwnerMatch IncludesNOEXEC
+        IndexOptions NameWidth=* DescriptionWidth=*
+
+        ### Authentication options
+        #order deny,allow
+        #deny from all
+        #allow from 127.0.0.1
+        #allow from horsea.3ti.be
+        #allow from pikachu.3ti.be
+
+        #AuthUserFile /var/mrepo/auth/.htpasswd
+        #Require user bert dag dries thias
+
+        HeaderName HEADER.shtml
+        ReadmeName README.shtml
+
+        AddDescription "CDROM ISO file" .iso
+        AddDescription "RPM packages" .rpm
+        AddDescription "Yum 1.x header file" .hdr
+
+        AddDescription "Mounted CDROM ISO" CD[0-9]
+        AddDescription "Mounted CDROM ISO" disc[0-9]
+        AddDescription "All RPM packages merged" RPMS.all
+        AddDescription "Custom local RPM packages" RPMS.local
+        AddDescription "OS RPM packages" RPMS.core
+        AddDescription "OS RPM packages" RPMS.os
+        AddDescription "OS update RPM packages" RPMS.updates
+        AddDescription "YaST Online Update RPM packages" RPMS.you
+        AddDescription "3rd party RPM packages" RPMS.
+        AddDescription "OS source RPM packages" SRPMS
+
+        AddDescription "Apt metadata" base
+        AddDescription "Old-style Yum metadata" headers
+        AddDescription "New-style Yum metadata" repodata
+        AddDescription "Temporary Yum metadata" .newheaders
+
+        AddDescription "CentOS 2 for x86" centos2-i386
+        AddDescription "CentOS 3 for x86" centos3-i386
+        AddDescription "CentOS 4 for alpha" centos4-alpha
+        AddDescription "CentOS 4 for IA64" centos4-ia64
+        AddDescription "CentOS 4 for ppc" centos4-ppc
+        AddDescription "CentOS 4 for s/390" centos4-s390
+        AddDescription "CentOS 4 for s/390x" centos4-s390x
+        AddDescription "CentOS 4 for sparc" centos4-sparc
+        AddDescription "CentOS 4 for x86" centos4-i386
+        AddDescription "CentOS 4 for x86_64" centos4-x86_64
+        AddDescription "CentOS 5 for alpha" centos5-alpha
+        AddDescription "CentOS 5 for IA64" centos5-ia64
+        AddDescription "CentOS 5 for ppc" centos5-ppc
+        AddDescription "CentOS 5 for s/390" centos5-s390
+        AddDescription "CentOS 5 for s/390x" centos5-s390x
+        AddDescription "CentOS 5 for sparc" centos5-sparc
+        AddDescription "CentOS 5 for x86" centos5-i386
+        AddDescription "CentOS 5 for x86_64" centos5-x86_64
+        AddDescription "Fedora Core 1 for x86" fc1-i386
+        AddDescription "Fedora Core 1 for x86_64" fc1-x86_64
+        AddDescription "Fedora Core 2 for x86" fc2-i386
+        AddDescription "Fedora Core 2 for x86_64" fc2-x86_64
+        AddDescription "Fedora Core 3 for x86" fc3-i386
+        AddDescription "Fedora Core 3 for x86_64" fc3-x86_64
+        AddDescription "Fedora Core 4 for x86" fc4-i386
+        AddDescription "Fedora Core 4 for PPC" fc4-ppc
+        AddDescription "Fedora Core 4 for x86_64" fc4-x86_64
+        AddDescription "Fedora Core 5 for x86" fc5-i386
+        AddDescription "Fedora Core 5 for PPC" fc5-ppc
+        AddDescription "Fedora Core 5 for x86_64" fc5-x86_64
+        AddDescription "Fedora Core 6 for x86" fc6-i386
+        AddDescription "Fedora Core 6 for PPC" fc6-ppc
+        AddDescription "Fedora Core 6 for x86_64" fc6-x86_64
+        AddDescription "Red Hat Linux 6.2 for x86" rh62-i386
+        AddDescription "Red Hat Linux 7.3 for x86" rh73-i386
+        AddDescription "Red Hat Linux 8.0 for x86" rh80-i386
+        AddDescription "Red Hat Linux 9 for x86" rh9-i386
+        AddDescription "Red Hat Advanced Server 2.1 for x86" rhel2.1as-i386
+        AddDescription "Red Hat Advanced Server 3 for PPC" rhel3as-ppc
+        AddDescription "Red Hat Advanced Server 3 for s/390" rhel3as-s390
+        AddDescription "Red Hat Advanced Server 3 for x86" rhel3as-i386
+        AddDescription "Red Hat Advanced Server 3 for x86_64" rhel3as-x86_64
+        AddDescription "Red Hat Advanced Server 4 for IA64" rhel4as-ia64
+        AddDescription "Red Hat Advanced Server 4 for PPC" rhel4as-ppc
+        AddDescription "Red Hat Advanced Server 4 for s/390" rhel4as-s390
+        AddDescription "Red Hat Advanced Server 4 for x86" rhel4as-i386
+        AddDescription "Red Hat Advanced Server 4 for x86_64" rhel4as-x86_64
+        AddDescription "Red Hat Advanced Server 5 for IA64" rhel5as-ia64
+        AddDescription "Red Hat Advanced Server 5 for PPC" rhel5as-ppc
+        AddDescription "Red Hat Advanced Server 5 for s/390" rhel5as-s390
+        AddDescription "Red Hat Advanced Server 5 for x86" rhel5as-i386
+        AddDescription "Red Hat Advanced Server 5 for x86_64" rhel5as-x86_64
+        AddDescription "Red Hat Enterprise Server 3 for x86" rhel3es-i386
+        AddDescription "Red Hat Enterprise Server 3 for x86_64" rhel3es-x86_64
+        AddDescription "Red Hat Enterprise Server 4 for x86" rhel4es-i386
+        AddDescription "Red Hat Enterprise Server 4 for x86_64" rhel4es-x86_64
+        AddDescription "Red Hat Enterprise Server 5 for x86" rhel5es-i386
+        AddDescription "Red Hat Enterprise Server 5 for x86_64" rhel5es-x86_64
+        AddDescription "Red Hat Workstation 3 for x86" rhel3ws-i386
+        AddDescription "Red Hat Workstation 3 for x86_64" rhel3ws-x86_64
+        AddDescription "Red Hat Workstation 4 for x86" rhel4ws-i386
+        AddDescription "Red Hat Workstation 4 for x86_64" rhel4ws-x86_64
+        AddDescription "Red Hat Workstation 5 for x86" rhel5ws-i386
+        AddDescription "Red Hat Workstation 5 for x86_64" rhel5ws-x86_64
+        AddDescription "SuSE Enterprise Server 8 for i386" sles8-i386
+        AddDescription "SuSE Enterprise Server 9 for i386" sles9-i386
+        AddDescription "Tao Linux 1 for i386" tao1-i386
+        AddDescription "Tao Linux 1 for x86_64" tao1-x86_64
+        AddDescription "Tao Linux 4 for i386" tao4-i386
+        AddDescription "Tao Linux 4 for x86_64" tao4-x86_64
+        AddDescription "Yellow Dog Linux 3.0 for PPC" yd3-ppc
+        AddDescription "Yellow Dog Linux 4.0 for PPC" yd4-ppc
+</Directory>
+
+### Name based virtual-host named "mrepo"
+### """"""""""""""""""""""""""""""""""""
+### The purpose of this virtual host is to provide a URL http://mrepo/
+### as a standard on your local network and map it to the correct IP
+### for the different networks that have access to it.
+#
+NameVirtualHost *:80
+
+<VirtualHost *:80>
+       DocumentRoot <%= node[:mrepo][:config][:wwwdir] %>
+       ErrorLog logs/mrepo-error_log
+       CustomLog logs/mrepo-access_log combined
+</VirtualHost>
