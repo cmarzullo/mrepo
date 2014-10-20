@@ -1,4 +1,5 @@
-default[:mrepo][:packages] = %w{ mrepo createrepo yum-utils lftp }
+#default[:mrepo][:packages] = %w{ mrepo createrepo yum-utils lftp }
+default[:mrepo][:packages] = %w{ createrepo yum-utils lftp rpm-build pax screen }
 default[:mrepo][:config][:srcdir] = '/var/mrepo'
 default[:mrepo][:config][:wwwdir] = '/var/www/mrepo'
 default[:mrepo][:config][:confdir] = '/etc/mrepo.conf.d'
@@ -16,7 +17,7 @@ default[:mrepo][:config][:httpd_mods] = %w{
                                           authnz_ldap authz_dbm authz_default authz_groupfile
                                           authz_host authz_owner authz_user autoindex cache
                                           cgi dav_fs dav deflate dir disk_cache env expires
-                                          ext_filter headers include info ldap log_config logio
+                                          ext_filter headers include info ldap log_config
                                           mime mime_magic negotiation proxy_ajp proxy_balancer
                                           proxy_connect proxy_ftp proxy_http proxy rewrite
                                           setenvif speling status substitute suexec userdir

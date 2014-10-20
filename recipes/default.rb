@@ -13,10 +13,15 @@ node[:mrepo][:packages].each do |p|
   end
 end
 
+## Build mrepo
+include_recipe 'build-essential'
+include_recipe 'omnibus::_common'
+include_recipe 'mrepo::_build'
+
 template '/etc/mrepo.conf' do
   source 'mrepo.conf.erb'
   action :create
-  notifies :reload, "service[mrepo]", :delayed
+  #notifies :reload, "service[mrepo]", :delayed
 end
 
 # Create cron entry
@@ -37,10 +42,10 @@ template '/etc/logrotate.d/mrepo' do
   action :create
 end
 
-service 'mrepo' do
-  supports :status => false, :restart => true, :start => true, :stop => true, :reload => true
-  action [:enable, :start]
-end
+#service 'mrepo' do
+#  supports :status => false, :restart => true, :start => true, :stop => true, :reload => true
+#  action [:enable, :start]
+#end
 
 include_recipe 'mrepo::_httpd' if node[:mrepo][:config][:httpd_enabled]
 
