@@ -1,3 +1,7 @@
+# 0.7.0
+
+* making new release
+
 # 0.6.0
 
 * httpd gets configured
