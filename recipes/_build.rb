@@ -15,7 +15,15 @@ execute 'mrepo_build' do
 end
 
 ## Install
+# TODO: These version numbers shouldn't be hardcoded.
 package 'mrepo' do
   action :install
   source "#{Chef::Config[:file_cache_path]}/mrepo-0.8.8-1.noarch.rpm"
+  notifies :write, 'log[mrepo_installed]', :immediately
 end
+
+log 'mrepo_installed' do
+  action :nothing
+  message "package[mrepo] installing from mrepo-0.8.8-1 from #{Chef::Config[:file_cache_path]}"
+end
+

@@ -1,19 +1,63 @@
-### Configuration file for mrepo
+### This file is controlled by Chef. All changes will be lost
 
 ### The [main] section allows to override mrepo's default settings
-### The mrepo-example.conf gives an overview of all the possible settings
 [main]
-srcdir = <%= node[:mrepo][:config][:srcdir] %>
-wwwdir =  <%= node[:mrepo][:config][:wwwdir] %>
-confdir = <%= node[:mrepo][:config][:confdir] %>
-arch = <%= node[:mrepo][:config][:arch] %>
+srcdir   = <%= @config.srcdir %>
+wwwdir   = <%= @config.wwwdir %>
+confdir  = <%= @config.confdir %>
+<% if @config.cachedir %>
+cachedir = <%= @config.cachedir %>
+<% end %>
 
-mailto = <%= node[:mrepo][:config][:mailto] %>
-smtp-server = <%= node[:mrepo][:config][:smtpserver] %>
+arch     = <%= @config.arch %>
 
-#rhnlogin = username:password
+<% if @config.mailto %>
+mailto =  <%= @config.mailto %>
+mailfrom =<%= @config.mailfrom %>
+smtp-server = <%= @config.smtpserver %>
 
-### Any other section is considered a definition for a distribution
-### You can put distribution sections in /etc/mrepo.conf.d/
-### Examples can be found in the documentation at:
-### /usr/share/doc/mrepo-0.8.7/dists/.
+<% end %>
+<% if @config.no_proxy %>
+no_proxy = <%= @config.no_proxy %>
+<% end %>
+<% if @config.ftp_proxy %>
+ftp_proxy = <%= @config.ftp_proxy %>
+<% end %>
+<% if @config.http_proxy %>
+http_proxy = <%= @config.http_proxy %>
+<% end %>
+<% if @config.https_proxy %>
+https_proxy = <%= @config.https_proxy %>
+<% end %>
+<% if @config.createrepo_options %>
+createrepo_options = <%= @config.createrepo_options %>
+<% end %>
+<% if @config.reposync_cleanup %>
+reposync_cleanup = <%= @config.reposync_cleanup %>
+<% end %>
+<% if @config.reposync_newest_only %>
+reposync_newest_only = <%= @config.reposync_newest_only %>
+<% end %>
+<% if @config.reposync_options %>
+reposync_options = <%= @config.reposync_options %>
+<% end %>
+<% if @config.repoview_options %>
+repoview_options = <%= @config.repoview_options %>
+<% end %>
+<% if @config.rhnlogin %>
+
+## RHN
+rhnlogin = <%= @config.rhnlogin %>
+<% if @config.rhnget_cleanup %>
+rhnget_cleanup = <%= @config.rhnget_cleanup %>
+<% end %>
+<% if @config.rhnget_download_all %>
+rhnget_download_all = <%= @config.rhnget_download_all %>
+<% end %>
+<% if @config.rhnget_options %>
+rhnget_options = <%= @config.rhnget_options %>
+<% end %>
+<% end %>
+
+## The repositories to mirror are defined in /etc/mrepo.conf.d/ 
+
