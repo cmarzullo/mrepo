@@ -9,9 +9,6 @@ metadata = <%= @config.metadata %>
 <% if @config.shareiso %>
 iso = <%= @config.iso %>
 <% end -%>
-<% if @config.shareiso %>
-shareiso = yes
-<% end %>
 
 <% if @config.sources -%>
 <%   @config.sources.each do |key, value| -%>
